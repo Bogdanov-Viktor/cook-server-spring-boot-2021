@@ -133,7 +133,7 @@ cargo:undeploy clean install cargo:deploy<br>
 &ltbuild&gt    <br>
 &ltfinalName&gt api##1 &lt/finalName&gt   <br>
 ...<br>
-Если бы вместо api##1 было api#url#addr##2, то приложение работало бы по адресу http://ip_адрес_виртуальной_машины:8080/api/url/addr и имело бы версию 2<br>
+Если бы вместо api##1 было api#url#addr##2, то приложение работало бы по адресу http://ip_адрес_виртуальной_машины:8080/api/url/addr и имело бы номер версии 2<br>
 ----<br>
 <br>
 Вуаля!!!<br>
