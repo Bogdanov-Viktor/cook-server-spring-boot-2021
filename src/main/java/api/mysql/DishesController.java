@@ -1,6 +1,22 @@
 package api.mysql;
 
 
+//POST /dishes.search?access_token="9h9er798”
+//Request :       { cook_time:{from : 00:00, to : 3:00}, num_of_people:{from : 0, to : 10}, product_limits : [{id:22, from:0, to : 10},{id:34, from:0, to : 10} ] }
+//Response :      { status : true, value : [ { id : 1, name : “лаваш”, cook_time: 1:00, num_of_people:6, recope_id : 21} , { id : 22, name : “лаваш”, cook_time: 1:00, num_of_people:6, recope_id : 21} ]
+//
+//POST /dishes.edit?access_token="9h9er798”
+//{ id : 1, name : “лаваш”, cook_time: 1:00, num_of_people:6, recope_id : 21}
+//Response :       { status : true}
+//POST /dishes.add?access_token="9h9er798”
+//{ name : “лаваш”, cook_time: 1:00, num_of_people:6, recope_id : 21}
+//Response :       { status : true}
+//GET /dishes.delete?id=2&access_token="9h9er798”
+//{ status : true}
+//{ status : false}
+//{ status : false, menus=[1,2,30]}
+
+
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.GetMapping;

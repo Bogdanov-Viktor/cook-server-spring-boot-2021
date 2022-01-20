@@ -1,5 +1,17 @@
 package api.mysql;
 
+//GET /products.getAll?access_token="9h9er798”
+//{ status : true, value : [ { id : 1, name : “Укроп”, measure_id=1, amount=300 }, { id : 2, name : “Укроп”, measure_id=1, amount=300 } ]}
+//POST /products.edit?access_token="9h9er798”
+//{ id : 1, name : “Укроп”, measure_id=1, amount=300 }
+//Response :       { status : true}
+//POST /products.add?access_token="9h9er798”
+//{ name : “Укроп”, measure_id=1, amount=300 }
+//Response :       { status : true}
+//
+//GET /products.delete?id=2&access_token="9h9er798”
+//{ status : true}
+
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.GetMapping;
