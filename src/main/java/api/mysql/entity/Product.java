@@ -1,4 +1,6 @@
-package api.mysql;
+package api.mysql.entity;
+import api.mysql.controller.*;
+import api.mysql.repo.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,7 @@ import javax.persistence.Id;
 // Таблица продуктов
 
 @Entity
-public class Products {
+public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +20,7 @@ public class Products {
 	
 	private long measure; // единица измерения
 	
-	private int amountInStock; // кол-во в наличии
+	private int amount; // кол-во в наличии
 
 	
 	
@@ -47,12 +49,12 @@ public class Products {
 		this.measure = measure;
 	}
 
-	public int getAmountInStock() {
-		return amountInStock;
+	public int getAmount() {
+		return amount;
 	}
 
-	public void setAmountInStock(int amountInStock) {
-		this.amountInStock = amountInStock;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 	
 }

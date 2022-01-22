@@ -1,17 +1,18 @@
-package api.mysql;
+package api.mysql.controller;
+import api.mysql.entity.*;
+import api.mysql.repo.*;
 
-
-//POST /dishes.search?access_token="9h9er798”
+//POST /dish.search?access_token="9h9er798”
 //Request :       { cook_time:{from : 00:00, to : 3:00}, num_of_people:{from : 0, to : 10}, product_limits : [{id:22, from:0, to : 10},{id:34, from:0, to : 10} ] }
 //Response :      { status : true, value : [ { id : 1, name : “лаваш”, cook_time: 1:00, num_of_people:6, recope_id : 21} , { id : 22, name : “лаваш”, cook_time: 1:00, num_of_people:6, recope_id : 21} ]
 //
-//POST /dishes.edit?access_token="9h9er798”
+//POST /dish.edit?access_token="9h9er798”
 //{ id : 1, name : “лаваш”, cook_time: 1:00, num_of_people:6, recope_id : 21}
 //Response :       { status : true}
-//POST /dishes.add?access_token="9h9er798”
+//POST /dish.add?access_token="9h9er798”
 //{ name : “лаваш”, cook_time: 1:00, num_of_people:6, recope_id : 21}
 //Response :       { status : true}
-//GET /dishes.delete?id=2&access_token="9h9er798”
+//GET /dish.delete?id=2&access_token="9h9er798”
 //{ status : true}
 //{ status : false}
 //{ status : false, menus=[1,2,30]}
@@ -31,18 +32,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @RestController
-public class DishesController {
+public class DishController {
 	
 	@Autowired
-	DishesRepository dishesRepo;
+	DishRepository dishRepo;
 	
 	
 
 	//@RequestParam("product") ProductInDishesSearch product, 
 	//от-до -- это про кол-во в блюде
-	//dishes.search?product=id_продукта&productQuaFrom=от&productQuaTo=до&cookTimeTo=до
-	@GetMapping("/dishes.search")
-	Iterable<Dishes> search(
+	//dish.search?product=id_продукта&productQuaFrom=от&productQuaTo=до&cookTimeTo=до
+	@GetMapping("/dish.search")
+	Iterable<Dish> search(
 			
 			@RequestParam(name = "product",required=false) Long product,
 			@RequestParam(name = "productQuaFrom",required=false) Integer productQuaFrom,
@@ -58,7 +59,7 @@ public class DishesController {
 //		str+=((productQuaTo!=null)?String.valueOf(productQuaTo):"null")+" ";
 //		str+=((cookTimeTo!=null)?String.valueOf(cookTimeTo):"null");
 		
-		Iterable<Dishes> dishesFound = dishesRepo.findAll();
+		Iterable<Dish> dishesFound = dishRepo.findAll();
 		
 		//TODO
 		
@@ -68,24 +69,24 @@ public class DishesController {
 		// {"id":1,"name":"qwer2","cookTime":"00:00:02","numOfPeople":3} ]
 	}
 	
-	//dishes.get?name=название_блюда
-	@GetMapping(path="/dishes.get", params = {"id"})
+	//dish.get?name=название_блюда
+	@GetMapping(path="/dish.get", params = {"id"})
 	String getById(@RequestParam("id") Long id) {
 		
 		//TODO
 		
-		return "dishes.get{id}";
+		return "dish.get{id}";
 		//нужно:
 		// {"id":1,"name":"qwer","recipe":"Рецепт","cookTime":"00:00:02","numOfPeople":3}
 	}
 	
-	//dishes.get?id=блюдо
-	@GetMapping(path="/dishes.get", params = {"name"})
+	//dish.get?id=блюдо
+	@GetMapping(path="/dish.get", params = {"name"})
 	String getByName(@RequestParam("name") String name) {
 		
 		//TODO
 		
-		return "dishes.get{name}";
+		return "dish.get{name}";
 		//нужно: (то же самое, что в предидущем)
 		// {"id":1,"name":"qwer","recipe":"Рецепт","cookTime":"00:00:02","numOfPeople":3}
 	}

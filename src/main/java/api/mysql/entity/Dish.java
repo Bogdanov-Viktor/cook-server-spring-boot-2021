@@ -1,4 +1,6 @@
-package api.mysql;
+package api.mysql.entity;
+import api.mysql.controller.*;
+import api.mysql.repo.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,7 @@ import javax.persistence.Id;
 //Таблица блюд
 
 @Entity
-public class Dishes {
+public class Dish {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

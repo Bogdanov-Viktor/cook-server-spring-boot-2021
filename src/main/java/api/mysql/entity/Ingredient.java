@@ -1,4 +1,6 @@
-package api.mysql;
+package api.mysql.entity;
+import api.mysql.controller.*;
+import api.mysql.repo.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,7 @@ import javax.persistence.Id;
 // Таблица ингредиентов
 
 @Entity
-public class Ingredients {
+public class Ingredient {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,8 +20,7 @@ public class Ingredients {
 	
 	private long product;
 	
-	private short amountToDish; // кол-во для приготовления
-
+	private int productAmountInDish; // кол-во для приготовления
 	
 	
 	public long getId() {
@@ -46,13 +47,15 @@ public class Ingredients {
 		this.product = product;
 	}
 
-	public short getAmountToDish() {
-		return amountToDish;
+	public int getProductAmountInDish() {
+		return productAmountInDish;
 	}
 
-	public void setAmountToDish(short amountToDish) {
-		this.amountToDish = amountToDish;
+	public void setProductAmountInDish(int productAmountInDish) {
+		this.productAmountInDish = productAmountInDish;
 	}
+
+	
 	
 	
 }

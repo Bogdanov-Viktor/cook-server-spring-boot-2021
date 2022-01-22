@@ -1,20 +1,22 @@
-package api.mysql;
+package api.mysql.controller;
+import api.mysql.entity.*;
+import api.mysql.repo.*;
 
-//GET /menus.getAll?access_token="9h9er798”
+//GET /menu.getAll?access_token="9h9er798”
 //{ status : true, value : [{ id : 1, name : “Банкетное” }, { id : 2, name : “Банкетное 2” }] }
-//POST /menus.edit?access_token="9h9er798”
+//POST /menu.edit?access_token="9h9er798”
 //{ id : 1, name : “Банкетное” }
 //Response :       { status : true}
-//POST /menus.add?access_token="9h9er798”
+//POST /menu.add?access_token="9h9er798”
 //{ id : 1, name : “Банкетное” }
 //Response :       { status : true}
-//GET / menus.delete?id=2&access_token="9h9er798”
+//GET / menu.delete?id=2&access_token="9h9er798”
 //{ status : true}
 //{ status : false}
 
-public class MenusController {
+public class MenuController {
 
-	public MenusController() {
+	public MenuController() {
 		// TODO Auto-generated constructor stub
 	}
 

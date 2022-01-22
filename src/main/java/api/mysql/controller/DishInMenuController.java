@@ -1,4 +1,6 @@
-package api.mysql;
+package api.mysql.controller;
+import api.mysql.entity.*;
+import api.mysql.repo.*;
 
 //GET / dishInMenu.delete?menu=2&access_token="9h9er798”
 //{ status : true}
