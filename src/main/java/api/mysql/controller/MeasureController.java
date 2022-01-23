@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 //import java.util.Dictionary;
 //import java.util.Hashtable;
@@ -24,7 +26,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+//http://192.168.1.10/api/
 //http://localhost:8080/
 
 //GET /measure.get?id=1&access_token="9h9er798”
@@ -48,33 +50,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RestController
 public class MeasureController {
 
-	//private String accessToken="9h9er798";
+	private String accessToken="9h9er798";
 	
 	@Autowired
 	MeasureRepository measureRepo;
 	
-	//http://localhost:8080/measure.get?id=0&access_token=9
-	
-	//GET /measure.get?id=1&access_token="9h9er798”
-	//  { status : true, value : { id : 1, name : “т.” } }
-	@GetMapping("/measure.get")
-	Map<String, Object> get(@RequestParam("id")long id,
-			@RequestParam("access_token")String accessToken) {
-		
-		
-		//Map<String,String> dictionary = new HashMap<String,String>();
-		 //устар: Dictionary<String, Object> response = new Hashtable<String, Object>();
-		 //Dictionary<String, Object> response2 = new Hashtable<String, Object>();
-		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("status", true); 
-		response.put("value", measureRepo.findAll());
-		 
-		//TODO
-//		responseValue.put("id", 1); 
-//		responseValue.put("name", "кг");
-		
-		return response;
-	}
+//	//http://localhost:8080/measure.get?id=0&access_token=9
+//	
+//	//GET /measure.get?id=1&access_token="9h9er798”
+//	//  { status : true, value : { id : 1, name : “т.” } }
+//	@GetMapping("/measure.get")
+//	Map<String, Object> get(@RequestParam("id")long id,
+//			@RequestParam("access_token")String accessToken) {
+//		
+//		
+//		//Map<String,String> dictionary = new HashMap<String,String>();
+//		 //устар: Dictionary<String, Object> response = new Hashtable<String, Object>();
+//		 //Dictionary<String, Object> response2 = new Hashtable<String, Object>();
+//		Map<String, Object> response = new HashMap<String, Object>();
+//		response.put("status", true); 
+//		response.put("value", measureRepo.findAll());
+//		 
+//		//TODO
+////		responseValue.put("id", 1); 
+////		responseValue.put("name", "кг");
+//		
+//		return response;
+//	}
 	
 	
 	//http://localhost:8080/measure.getAll?access_token=9
@@ -84,28 +86,22 @@ public class MeasureController {
 	@GetMapping("/measure.getAll")
 	Map<String, Object> getAll(@RequestParam("access_token")String accessToken) {
 		
-//		Map<String, Object> response = new HashMap<String, Object>();
-//		List<Object> responseValue = new ArrayList<Object>();
-//		Map<String, Object> responseValueEl1 = new HashMap<String, Object>();
-//		Map<String, Object> responseValueEl2 = new HashMap<String, Object>();
-//		response.put("status", true); 
-//		response.put("value", responseValue);
-//		
-//		responseValue.add(responseValueEl1); 
-//		responseValue.add(responseValueEl2);
-//		
-//		responseValueEl1.put("id", 0); 
-//		responseValueEl1.put("name", "кг");
-//		
-//		responseValueEl2.put("id", 1); 
-//		responseValueEl2.put("name", "т.");
-		
+		// List<Object> responseValue = new ArrayList<Object>();
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("status", true); 
+
+		if (!Objects.equals(accessToken, this.accessToken)) {
+			response.put("status", false);
+			return response;
+		}
+		
+		response.put("status",  true); 
 		response.put("value", measureRepo.findAll());
 		
 		return response;
 	}
+	
+	// http://localhost:8080/measure.delete?id=0&access_token="9h9er798"
+	
 	//GET /measure.delete?id=0&access_token="9h9er798”
 	//	      {status : true}
 	//	      { status : false}
@@ -115,9 +111,16 @@ public class MeasureController {
 			@RequestParam("access_token")String accessToken) {
 		
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("status", true);
 		
-	    //TODO
+		if (!Objects.equals(accessToken, this.accessToken)) {
+			response.put("status", false);
+			return response;
+		}
+		
+		Boolean status = measureRepo.existsById(id);
+		response.put("status", status);
+		if(status)
+			measureRepo.deleteById(id);
 		
 		return response;
 	}
@@ -133,26 +136,42 @@ public class MeasureController {
 		
 		Map<String, Object> response = new HashMap<String, Object>();
 		
-		
-		response.put("status", true); 
-		response.put("id", 2);
+		if (!Objects.equals(accessToken, this.accessToken)) {
+			response.put("status", false);
+			return response;
+		}
 
 		Measure measure = new Measure();
 		measure.setName(newName);
 		measureRepo.save(measure);
+
+		response.put("status", true); 
+		response.put("id", measure.getId());
 		
 		return response;
 	}
 	//GET /measure.edit?id=0&set_name=”грамм”&access_token="9h9er798”
 	//	      {status : true}
 	@GetMapping("/measure.edit")
-	Map<String, Object> edit(@RequestParam("id")String id,
+	Map<String, Object> edit(@RequestParam("id")long id,
 			@RequestParam("set_name")String newName,
 			@RequestParam("access_token")String accessToken) {
 		
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("status", true);
-	    //TODO
+		
+		if (!Objects.equals(accessToken, this.accessToken)) {
+			response.put("status", false);
+			return response;
+		}
+			
+		Boolean status = measureRepo.existsById(id);
+		response.put("status", status);
+		if (status){
+			Measure el = measureRepo.findById(id).get();
+			el.setName(newName);
+			measureRepo.save(el);
+			System.out.println(el.getName());
+		}
 		
 		return response;
 	}
